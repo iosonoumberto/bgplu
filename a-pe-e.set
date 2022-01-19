@@ -1,0 +1,147 @@
+<configuration-set>
+set version 18.4R1.8
+set groups re0 system host-name pe1
+set groups re0 system backup-router 10.102.175.254
+set groups re0 interfaces fxp0 unit 0 family inet address 10.102.163.78/20
+set groups re1 system host-name pe11
+set groups re1 system backup-router 10.102.175.254
+set groups re1 interfaces fxp0 unit 0 family inet address 10.102.163.79/20
+set groups global system login class wheel permissions snmp
+set groups global system login user regress uid 928
+set groups global system login user regress class superuser
+set groups global system login user regress shell csh
+set groups global system login user regress authentication encrypted-password "$1$kPU..$w.4FGRAGanJ8U4Yq6sbj7."
+set groups global system login user remote uid 2000
+set groups global system login user remote class super-user
+set groups global system root-authentication encrypted-password "$1$ZUlES4dp$OUwWo1g7cLoV/aMWpHUnC/"
+set groups global system services finger
+set groups global system services ftp
+set groups global system services rlogin
+set groups global system services ssh root-login allow
+set groups global system services telnet
+set groups global system services xnm-clear-text
+set groups global system domain-name englab.juniper.net
+set groups global system domain-search englab.juniper.net
+set groups global system domain-search juniper.net
+set groups global system domain-search jnpr.net
+set groups global system domain-search spglab.juniper.net
+set groups global system time-zone America/Los_Angeles
+set groups global system debugger-on-break
+set groups global system dump-on-panic
+set groups global system authentication-order password
+set groups global system authentication-order radius
+set groups global system name-server 10.102.149.51
+set groups global system name-server 10.102.149.52
+set groups global system radius-server 192.168.69.162 secret "$9$iHfz9Cu0BRQznCApIRSreWxNVw2GjkKM4JGimP"
+set groups global system radius-server 192.168.64.10 secret "$9$TQ/t1IcSrKAt0IRheK8X7VYgaZDm5zNdiqmTn6"
+set groups global system radius-server 192.168.4.240 secret "$9$GqUqf3nCApOPfQn690ORhSeWL7-boZDylsgoGHk"
+set groups global system syslog host log kernel info
+set groups global system syslog host log any notice
+set groups global system syslog host log pfe info
+set groups global system syslog host log interactive-commands any
+set groups global system syslog file messages kernel info
+set groups global system syslog file messages any notice
+set groups global system syslog file messages authorization info
+set groups global system syslog file messages pfe info
+set groups global system syslog file messages archive world-readable
+set groups global system syslog file security interactive-commands any
+set groups global system syslog file security archive world-readable
+set groups global system processes routing enable
+set groups global system processes ntp enable
+set groups global system processes management enable
+set groups global system processes watchdog enable
+set groups global system processes snmp enable
+set groups global system processes inet-process enable
+set groups global system processes mib-process enable
+set groups global system ntp boot-server 172.21.200.60
+set groups global system ntp server 172.21.200.60
+set groups global system ntp server 172.29.131.60
+set groups global system ntp server 172.29.135.60
+set groups global chassis dump-on-panic
+set groups global snmp location "Systest lab"
+set groups global snmp contact "Jay Lloyd"
+set groups global snmp interface fxp0.0
+set groups global snmp community public authorization read-only
+set groups global snmp community private authorization read-write
+set groups global routing-options static route 172.16.0.0/12 next-hop 10.102.175.254
+set groups global routing-options static route 172.16.0.0/12 retain
+set groups global routing-options static route 172.16.0.0/12 no-readvertise
+set groups global routing-options static route 192.168.0.0/16 next-hop 10.102.175.254
+set groups global routing-options static route 192.168.0.0/16 retain
+set groups global routing-options static route 192.168.0.0/16 no-readvertise
+set groups global routing-options static route 10.0.0.0/8 next-hop 10.102.175.254
+set groups global routing-options static route 10.0.0.0/8 retain
+set groups global routing-options static route 10.0.0.0/8 no-readvertise
+set groups global routing-options static route 66.129.255.62/32 next-hop 10.102.175.254
+set groups global routing-options static route 66.129.255.62/32 retain
+set groups global routing-options static route 66.129.255.62/32 no-readvertise
+set apply-groups global
+set system services netconf ssh
+set system host-name A-PE-E
+set system ports console log-out-on-disconnect
+set chassis aggregated-devices ethernet device-count 100
+set chassis fpc 0 pic 0 tunnel-services bandwidth 1g
+set interfaces ge-0/0/0 unit 0 family inet filter input gre-in
+set interfaces ge-0/0/0 unit 0 family inet address 172.30.101.1/31
+set interfaces ge-0/0/1 gigether-options 802.3ad ae12
+set interfaces ge-0/0/2 gigether-options 802.3ad ae12
+set interfaces ge-0/0/3 gigether-options 802.3ad ae13
+set interfaces ge-0/0/4 gigether-options 802.3ad ae13
+set interfaces ge-0/0/5 gigether-options 802.3ad ae14
+set interfaces ge-0/0/6 gigether-options 802.3ad ae14
+set interfaces ae12 aggregated-ether-options lacp active
+set interfaces ae12 aggregated-ether-options lacp periodic fast
+set interfaces ae12 unit 0 family inet filter output gre-out
+set interfaces ae12 unit 0 family inet address 192.168.12.0/31
+set interfaces ae12 unit 0 family mpls
+set interfaces ae13 aggregated-ether-options lacp active
+set interfaces ae13 aggregated-ether-options lacp periodic fast
+set interfaces ae13 unit 0 family inet address 192.168.13.0/31
+set interfaces ae14 aggregated-ether-options lacp active
+set interfaces ae14 aggregated-ether-options lacp periodic fast
+set interfaces ae14 unit 0 family inet address 192.168.14.0/31
+set interfaces fxp0 unit 0 family inet address 10.93.20.244/20
+set interfaces lo0 unit 0 family inet address 1.1.1.1/32
+set interfaces lo0 unit 101 family inet address 1.2.3.4/32
+set policy-options policy-statement optc-exp term lo0 from interface lo0.101
+set policy-options policy-statement optc-exp term lo0 then community set optc
+set policy-options policy-statement optc-exp term lo0 then accept
+set policy-options policy-statement optc-exp then reject
+set policy-options policy-statement optc-imp term ok from protocol bgp
+set policy-options policy-statement optc-imp term ok from community optc
+set policy-options policy-statement optc-imp term ok then accept
+set policy-options policy-statement optc-imp then reject
+set policy-options community optc members target:65100:101
+set firewall family inet filter gre-in term gre from source-address 10.10.10.10/32
+set firewall family inet filter gre-in term gre from destination-address 3.3.3.3/32
+set firewall family inet filter gre-in term gre from protocol gre
+set firewall family inet filter gre-in term gre then count grein
+set firewall family inet filter gre-in term gre then accept
+set firewall family inet filter gre-in term def then accept
+set firewall family inet filter gre-out term gre from protocol gre
+set firewall family inet filter gre-out term gre then count greout
+set firewall family inet filter gre-out term gre then accept
+set firewall family inet filter gre-out term def then accept
+set routing-instances optc instance-type vrf
+set routing-instances optc interface lo0.101
+set routing-instances optc route-distinguisher 1.1.1.1:101
+set routing-instances optc vrf-import optc-imp
+set routing-instances optc vrf-export optc-exp
+set routing-instances optc vrf-table-label
+set routing-options autonomous-system 100
+set protocols ldp interface ae12.0
+set protocols ldp interface lo0.0
+set protocols bgp group LU type internal
+set protocols bgp group LU local-address 1.1.1.1
+set protocols bgp group LU family inet labeled-unicast resolve-vpn
+set protocols bgp group LU neighbor 3.3.3.3
+set protocols bgp group PE multihop ttl 10
+set protocols bgp group PE local-address 1.1.1.1
+set protocols bgp group PE family inet-vpn unicast
+set protocols bgp group PE peer-as 200
+set protocols bgp group PE neighbor 5.5.5.5
+set protocols ospf area 0.0.0.0 interface ae12.0 interface-type p2p
+set protocols ospf area 0.0.0.0 interface lo0.0 passive
+set protocols ospf area 0.0.0.0 interface ge-0/0/0.0 interface-type p2p
+set protocols mpls interface ae12.0
+</configuration-set>
